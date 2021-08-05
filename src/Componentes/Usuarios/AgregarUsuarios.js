@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import Card from "../UI/Card";
-import classes from './AgregarUsuario.module.css';
-import Button from '../UI/Button';
-import ErrorModal from "../UI/ErrorModal";
+import Card from "../Login/Card";
+import classes from './AgregarUsuarios.module.css';
+import Button from '../Login/Button';
+import ErrorModal from "../Usuarios/ErrorModal";
 
 
 const AgregarUsuarios = (props) => {
@@ -13,7 +13,7 @@ const AgregarUsuarios = (props) => {
 
     const addUserHandler = (event) => {
         event.preventDefault();
-        if (enteredEmail.trim().length === 0 || setEnteredPassword.trim().length === 0) {
+        if (enteredEmail.trim().length === 0 || enteredPassword.trim().length === 0) {
             setError ({
                 title:'Email invalido',
                 message:'Por favor ingrese un email y contraseña validos. (no empty values)'
@@ -21,13 +21,24 @@ const AgregarUsuarios = (props) => {
             return;
         }
 
-        if (enteredAge < 1) {
+        if (enteredPassword.trim().length === 0) {
             setError ({
-                title:'Edad invalida',
-                message:'Por favor ingrese una edad valida. (no empty values)'
+                title:'Contraseña invalida',
+                message:'Por favor ingrese una contraseña valida. (no empty values)'
+            });
+            return;
+        } 
+
+        if(enteredEmail.trim().length !== 0 || enteredPassword.trim().length !==
+         0) {
+            setError ({
+                title: 'Ambos datos son correctos',
+                message: 'Hola $`{enteredEmail}` bienvenido'
+
             });
             return;
         }
+
         props.onAddUser(enteredEmail, enteredPassword);
         setEnteredEmail ('');
         setEnteredPassword ('');
